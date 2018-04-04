@@ -26,8 +26,8 @@ public class PirateService {
 
 
         // delete all the pirates and pieces of eight from the database
-        pirateRepository.deleteAll();
-        pieceOfEightRepository.deleteAll();
+       deleteAll();
+
 
         // use the csvParser to get a list of all the pirates, the path should be "classpath:pirates.csv"
         PirateModule pirateModule = new PirateModule("classpath:pirates.csv");
@@ -35,18 +35,23 @@ public class PirateService {
 
         // for each pirate, save first manually the piece of eight,
         pirates.stream()
-                .
+                .map(pirate -> pirate.getPieceOfEight())
+                .forEach(pieceOfEight -> pieceOfEightRepository.save(pieceOfEight));
+
         // connect it to the corresponding pirate and then save the pirate
+        pirates.stream().forEach(pirate -> pirateRepository.save(pirate));
     }
 
     public List<Pirate> findAll() {
-        return null; // return all the pirates from the database
+        return pirateRepository.findAll();
     }
 
     public void deleteAll() {
 
         // delete all pirates
-        // delete all pieces of eight
+        pirateRepository.deleteAll();
 
+        // delete all pieces of eight
+        pieceOfEightRepository.deleteAll();
     }
 }
