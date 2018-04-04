@@ -1,11 +1,19 @@
 package at.refugeescode.mp11piratesofthecodebean3.persistence;
 
-public class Pirate {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+@Entity
+public class Pirate {
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String name;
 
+    @OneToOne
     private PieceOfEight pieceOfEight;
 
     public Long getId() {
